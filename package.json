@@ -20,8 +20,8 @@
     "start": "tsx server/src/http/server.ts",
     "dev": "tsx --env-file .env --watch server/src/http/server.ts",
     "seed": "tsx --env-file .env server/src/db/seed.ts",
-    "migrate": "drizzle-kit --config drizzle.config.ts --out ./drizzle --migrations",
-    "generate": "drizzle-kit --config drizzle.config.ts --out ./drizzle --schema ./server/src/db/schema.ts"
+    "migrate": "drizzle-kit migrate --config drizzle.config.ts",
+    "generate": "drizzle-kit generate --config drizzle.config.ts"
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^3.3.0",

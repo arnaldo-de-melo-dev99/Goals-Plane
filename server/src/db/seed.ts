@@ -6,7 +6,7 @@ async function seed() {
     await db.delete(goalCompletions)
     await db.delete(goals)
 
-    const result =await db.insert(goals).values([
+    const result = await db.insert(goals).values([
         {title: 'Acordar cedo', desiredWeeklyFrequency: 5},
         {title: 'Fazer exercícios', desiredWeeklyFrequency: 3},
         {title: 'Meditar', desiredWeeklyFrequency: 1},

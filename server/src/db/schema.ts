@@ -13,7 +13,7 @@ export const goals = pgTable("goals", {
 
 export const goalCompletions = pgTable("goal_completions", {
   id: text('id').primaryKey().$defaultFn(() => createId()),
-  goalId: integer('goal_id')
+  goalId: text('goal_id')
     .references(() => goals.id)
     .notNull(),
   completedAt: timestamp('completed_at', { withTimezone: true })
