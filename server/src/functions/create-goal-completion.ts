@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import { goalCompletions, goals } from "../db/schema";
 import { and, count, eq, gte, lte, sql } from "drizzle-orm";
+import { AppError } from "../errors/app-error";
 
 interface CreateGoalCompletionRequest {
     goalId: string;
@@ -50,13 +51,13 @@ export async function createGoalCompletion({
     const goal = result[0];
 
     if (!goal) {
-        throw new Error("Goal not found");
+        throw new AppError("Goal not found", 404);
     }
 
     const { desiredWeeklyFrequency, completionCount } = goal;
 
     if (completionCount >= desiredWeeklyFrequency) {
-        throw new Error("Goal already completed for this week");
+        throw new AppError("Goal already completed for this week", 409);
     }
 
     const insertResult = await db.insert(goalCompletions).values({ goalId }).returning();

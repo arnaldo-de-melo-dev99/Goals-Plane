@@ -1,19 +1,36 @@
 //import "biome" from "@biomejs/biome";
 import fastify from "fastify";
+
 import {
     serializerCompiler,
     validatorCompiler,
     type ZodTypeProvider,
 } from "fastify-type-provider-zod";
+
 import { createGoal } from "../functions/create-goal";
 import z from "zod";
 import { getWeekPendingGoals } from "../functions/get-week-pending-goals";
 import { createGoalCompletion } from "../functions/create-goal-completion";
+import { AppError } from "../errors/app-error";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+
+app.setErrorHandler((error, _request, reply) => {
+    if (error instanceof AppError) {
+        return reply.status(error.statusCode).send({
+            message: error.message,
+        });
+    }
+
+    console.error(error);
+
+    return reply.status(500).send({
+        message: "Internal Server Error",
+    });
+});
 
 app.post(
     "/completions",
