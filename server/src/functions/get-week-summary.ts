@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
 import { db } from "../db";
 import { goalCompletions, goals } from "../db/schema";
-import {and, gte, lte, count} from "drizzle-orm";
+import {and, gte, lte, eq, sql} from "drizzle-orm";
 
 export async function getWeekSummary() {
     const firstDayOfWeek = dayjs().startOf("week").toDate();
     const lastDayOfWeek = dayjs().endOf("week").toDate();
 
-    const goalsCreatedUpToWeek = db.$with("goals_created_up_to_week").as(
+    const goalsCreatedUpToWeek = db.$with('goals_created_up_to_week').as(
         db.select({
             id: goals.id,
             title: goals.title,
@@ -18,23 +18,49 @@ export async function getWeekSummary() {
         .where(lte(goals.createdAt, lastDayOfWeek))
     );
  
-    const goalCompletionCounts = db.$with("goal_completion_counts").as(
+    const goalCompletionInWeek = db.$with('goal_completion_in_week').as(
         db
             .select({
-                goal_id: goalCompletions.goalId,
-                completion_count: count(goalCompletions.id).as("completion_count"),
+               id: goalCompletions.id,
+               title: goals.title,
+               competedAt: goalCompletions.createdAt,
+               completedAtDate: sql/*sql*/`
+                    DATE(${goalCompletions.createdAt})
+               `.as("completed_at_date"),
             })
             .from(goalCompletions)
+            .innerJoin(goals, eq(goalCompletions.goalId, goals.id))
             .where(
                 and(
                     gte(goalCompletions.createdAt, firstDayOfWeek),
                     lte(goalCompletions.createdAt, lastDayOfWeek),
                 ),
             )
-            .groupBy(goalCompletions.goalId),
     );
     
+    const goalsCompletedByWeekDay = db.$with('goals_completed_by_week_day').as(
+        db
+            .select({
+                completedAtDate: goalCompletionInWeek.completedAtDate,
+                completions: sql/*sql*/`
+                  JSON_AGG(
+                    JSON_BUILD_OBJECT(
+                        'id', ${goalCompletionInWeek.id},
+                        'title', ${goalCompletionInWeek.title},
+                        'competedAt', ${goalCompletionInWeek.competedAt},
+                    )
+                )
+                `.as("completions"),
+            })
+            .from(goalCompletionInWeek)
+            .groupBy(goalCompletionInWeek.completedAtDate)
+    )
+    
+    const result = await db
+        .with(goalsCreatedUpToWeek, goalCompletionInWeek, goalsCompletedByWeekDay)
+        .select()
+        .from(goalsCompletedByWeekDay)
     return {
-        summary: 'test',
+        summary: result,
     }
 }
