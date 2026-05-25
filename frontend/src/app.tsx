@@ -5,7 +5,7 @@ export function App() {
 
   return (
     <>
-      <div className="h-screen flex flex-col items-center justify-center gap-8 fixed">
+      <div className="h-screen flex flex-col items-center justify-center gap-8">
         <img src={logo} className="w-1/2 h-1/2" alt="GoWeek" />
         <img src={letStart} className="" alt="Let's Start" />
         <p className="text-zinc-300 leading-relaxed max-w-80 text-center">
