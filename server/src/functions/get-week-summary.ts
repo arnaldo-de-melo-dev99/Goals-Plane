@@ -47,7 +47,7 @@ export async function getWeekSummary() {
                     JSON_BUILD_OBJECT(
                         'id', ${goalCompletionInWeek.id},
                         'title', ${goalCompletionInWeek.title},
-                        'competedAt', ${goalCompletionInWeek.competedAt},
+                        'competedAt', ${goalCompletionInWeek.competedAt}
                     )
                 )
                 `.as("completions"),
