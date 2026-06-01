@@ -1,8 +1,11 @@
 # Logs
+<<<<<<< HEAD
 .codex
 .agents
 .codex-logs
 .agents-logs
+=======
+>>>>>>> backend
 .vscode
 logs
 *.log
