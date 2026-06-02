@@ -1,3 +1,10 @@
+## Copyright & License
+
+Copyright (c) 2026 Arnaldo De Melo.
+All Rights Reserved.
+
+This software and source code may not be copied, modified, distributed, sublicensed, sold, or reused without explicit written permission from the author.
+
 # Goals Plane 🎯
 
 > Também referenciado como **inorbit**
