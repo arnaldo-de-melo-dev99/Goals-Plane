@@ -383,7 +383,8 @@ A interface utiliza React Query para buscar, atualizar e sincronizar dados após
 
 ## Licença
 
-Este projeto está licenciado sob a **MIT License**.
+Este projecto não deve ser alterado ou modificado o código, em uma outra imagem.
+Qualquer acto não altorizado, pelo author será considerado fraude.
 
 ---
 ## Copyright & License
