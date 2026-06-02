@@ -9,8 +9,20 @@ import {
   DialogDescription, 
   DialogTitle
 } from './ui/dialog'
+import { z } from "zod"
+import {useForm} from "react-hook-form"
+import { title } from "node:process"
+
+const createGoalForm = z.object({
+  title: z.string().min(5, 'Informe a actividade que deseja realizar'),
+  desiredWeeklyFrequency: z.coerce.number().min(1).max(7),
+})
 
 export  function CreateGoal() {
+  const {} = useForm({
+      resolver:   zodResolver(createGoalForm)
+  })
+
   return (
       <DialogContent>
         <div className="flex flex-col gap-6 h-full">
