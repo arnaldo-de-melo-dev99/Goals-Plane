@@ -8,7 +8,7 @@ Aplicação fullstack para organização de metas semanais, permitindo ao usuár
 
 ## Visão geral
 
-O **AI-Highlight-Generator** é uma plataforma para gestão de metas pessoais semanais, com foco em simplicidade, clareza e consistência. O projeto funciona como um painel leve de produtividade, semelhante a um Trello simplificado para acompanhamento de completude semanal.
+O **Goals Plane** é uma plataforma para gestão de metas pessoais semanais, com foco em simplicidade, clareza e consistência. O projeto funciona como um painel leve de produtividade, semelhante a um Trello simplificado para acompanhamento de completude semanal.
 
 A aplicação permite:
 
