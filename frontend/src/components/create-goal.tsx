@@ -26,7 +26,7 @@ type CreateGoalForm = z.infer<typeof createGoalFormSchema>
 export  function CreateGoal() {
   const queryClient = useQueryClient()
 
-  const { register, control, handleSubmit, formState } = useForm<CreateGoalForm>({
+  const { register, control, handleSubmit, formState, reset } = useForm<CreateGoalForm>({
       resolver: zodResolver(createGoalFormSchema)
   })
 
@@ -39,6 +39,8 @@ export  function CreateGoal() {
 
     queryClient.invalidateQueries({queryKey: ['summary']})
     queryClient.invalidateQueries({queryKey: ['pending-goals']})
+
+    reset();
   }
 
   return (
@@ -78,7 +80,7 @@ export  function CreateGoal() {
                 <Label htmlFor="quantity">Quantas vezes por semana?</Label>
                 <Controller
                   control={control}
-                  defaultValue={3}
+                  defaultValue={1}
                   name="desiredWeeklyFrequency" 
                   render={({field}) => {
                     return (
