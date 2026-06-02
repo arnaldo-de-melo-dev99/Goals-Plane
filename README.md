@@ -348,6 +348,20 @@ A interface utiliza React Query para buscar, atualizar e sincronizar dados após
 
 ---
 
+## Template:
+
+### Home Page:
+
+![alt text](<Screenshot from 2026-06-02 19-05-24.png>)
+
+### Goals Page
+
+![alt text](<Screenshot from 2026-06-02 19-04-19.png>)
+
+### Create Goals Page
+
+![alt text](<Screenshot from 2026-06-02 19-04-34.png>)
+
 ## Scripts principais
 
 ### Backend
